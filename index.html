@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МорозБук - Соцсеть Деда Мороза</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: linear-gradient(135deg, #e0f7ff 0%, #f0f8ff 100%);
+            color: #0d3b66;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Верхняя информационная строка */
+        .top-info {
+            background: linear-gradient(to right, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 8px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+        }
+        
+        .top-info span {
+            margin: 0 10px;
+        }
+        
+        .countdown {
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 15px;
+            margin: 0 5px;
+        }
+        
+        .author {
+            font-style: italic;
+            color: #fff8e1;
+        }
+        
+        /* Шапка */
+        .header {
+            background: linear-gradient(to right, #1a2980, #26d0ce);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 100, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            margin-right: 10px;
+            animation: spin 10s linear infinite;
+        }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .logo h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.2rem;
+            margin-right: 15px;
+        }
+        
+        .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+            flex-basis: 100%;
+        }
+        
+        .main-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .main-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .avatar-small {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        
+        .badge {
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+        
+        /* Основная структура */
+        .main-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .sidebar {
+            flex: 0 0 250px;
+        }
+        
+        .feed {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .sidebar-right {
+            flex: 0 0 250px;
+        }
+        
+        /* Карточка профиля */
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 100, 0.05);
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .profile-cover {
+            height: 80px;
+            width: 100%;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin-top: -50px;
+            object-fit: cover;
+            background: #e0f7ff;
+        }
+        
+        .profile-card h2 {
+            margin: 10px 0 5px;
+            font-size: 1.5rem;
+        }
+        
+        .profile-title, .profile-location {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 5px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .profile-stats div {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile-stats strong {
+            font-size: 1.2rem;
+            color: #1a2980;
+        }
+        
+        .profile-stats span {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        /* Большие числа (миллиарды) */
+        .big-number {
+            font-size: 1.4rem;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        
+        .billion {
+            font-size: 0.9rem;
+            color: #1a2980;
+            font-weight: normal;
+        }
+        
+        /* Кнопки */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Comfortaa', cursive;
+            margin: 5px;
+        }
+        
+        .btn-snow {
+            background: linear-gradient(to right, #00b4db, #0083b0);
+            color: white;
+            width: calc(100% - 30px);
+            margin: 15px;
+        }
+        
+        .btn-snow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 131, 176, 0.3);
+        }
+        
+        .btn-post {
+            background: linear-gradient(to right, #1a2980, #26d0ce);
+            color: white;
+        }
+        
+        /* Виджеты */
+        .sidebar-widget {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 100, 0.05);
+        }
+        
+        .sidebar-widget h3 {
+            color: #1a2980;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Онлайн список */
+        .online-list {
+            list-style: none;
+        }
+        
+        .online-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .online-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .online-list img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0f7ff;
+        }
+        
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: #2ecc71;
+            border-radius: 50%;
+            margin-left: auto;
+        }
+        
+        .offline {
+            color: #888;
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+        
+        /* Лента постов */
+        .create-post {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 100, 0.05);
+        }
+        
+        .post-header {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #e0f7ff;
+        }
+        
+        .create-post textarea {
+            width: 100%;
+            min-height: 80px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Comfortaa', cursive;
+            resize: vertical;
+            font-size: 1rem;
+        }
+        
+        .post-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: #1a2980;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: #e0f7ff;
+        }
+        
+        /* Пост */
+        .post {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 100, 0.05);
+        }
+        
+        .highlight-post {
+            border: 2px solid #1a2980;
+        }
+        
+        .post-author h3 {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .verified {
+            color: #1a2980;
+        }
+        
+        .post-time {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .post-content {
+            margin: 15px 0;
+        }
+        
+        .post-image {
+            margin-top: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            max-height: 400px;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .post-stats {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin: 15px 0;
+        }
+        
+        .like-btn, .comment-btn, .share-btn {
+            background: none;
+            border: none;
+            color: #1a2980;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-family: 'Comfortaa', cursive;
+            font-size: 0.95rem;
+        }
+        
+        .like-btn:hover, .comment-btn:hover, .share-btn:hover {
+            background: #e0f7ff;
+        }
+        
+        /* События */
+        .events-list {
+            list-style: none;
+        }
+        
+        .events-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .events-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .events-list strong {
+            color: #1a2980;
+        }
+        
+        /* Волшебные предложения */
+        .magic-offers {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            color: #0d3b66;
+        }
+        
+        .magic-offers h3 {
+            color: #1a2980;
+            margin-bottom: 15px;
+        }
+        
+        .btn-magic {
+            background: linear-gradient(to right, #1a2980, #26d0ce);
+            color: white;
+            width: 100%;
+            margin-top: 15px;
+        }
+        
+        /* Теги */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            background: #e0f7ff;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tag:hover {
+            background: #1a2980;
+            color: white;
+        }
+        
+        /* Иконки аватарок */
+        .avatar-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #1a2980;
+        }
+        
+        /* Простые цветовые схемы для аватаров */
+        .avatar-snowgirl {
+            background: #ffebee;
+            color: #e91e63;
+        }
+        
+        .avatar-snowman {
+            background: #e8f5e9;
+            color: #4caf50;
+        }
+        
+        .avatar-leshy {
+            background: #f3e5f5;
+            color: #9c27b0;
+        }
+        
+        .avatar-water {
+            background: #e3f2fd;
+            color: #2196f3;
+        }
+        
+        .avatar-santa {
+            background: #fff3e0;
+            color: #ff9800;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .sidebar, .sidebar-right {
+                display: none;
+            }
+            
+            .main-nav {
+                gap: 10px;
+            }
+            
+            .main-nav a span {
+                display: none;
+            }
+            
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+            
+            .top-info {
+                font-size: 0.8rem;
+            }
+            
+            .big-number {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            .logo h1 {
+                font-size: 2rem;
+            }
+            
+            .post-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .action-btn, .btn-post {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .top-info {
+                padding: 6px 0;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Верхняя информационная строка -->
+    <div class="top-info">
+        <span><i class="fas fa-calendar-alt"></i> До Нового года осталось: <span class="countdown" id="countdown">загрузка...</span> дней</span>
+        <span>•</span>
+        <span><i class="fas fa-user-graduate"></i> Создано: <span class="author">Бушуев Савелий, 3А класс</span></span>
+    </div>
+
+    <!-- Шапка сети -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-snowflake"></i>
+                <h1>МорозБук</h1>
+                <span class="subtitle">Социальная сеть зимнего волшебства</span>
+            </div>
+            <nav class="main-nav">
+                <a href="#"><i class="fas fa-home"></i> <span>Лента</span></a>
+                <a href="#"><i class="fas fa-user-friends"></i> <span>Друзья</span></a>
+                <a href="#"><i class="fas fa-gift"></i> <span>Подарки</span></a>
+                <a href="#"><i class="fas fa-envelope"></i> <span>Сообщения</span> <span class="badge">3</span></a>
+                <a href="#" class="profile-link">
+                    <div class="avatar-small avatar-icon avatar-santa">
+                        <i class="fas fa-snowman"></i>
+                    </div>
+                    <span>Дед Мороз</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container main-container">
+        <!-- Боковая панель (профиль и меню) -->
+        <aside class="sidebar">
+            <div class="profile-card">
+                <div class="profile-cover"></div>
+                <div class="profile-avatar avatar-icon avatar-santa">
+                    <i class="fas fa-snowman" style="font-size: 3rem;"></i>
+                </div>
+                <h2>Дед Мороз</h2>
+                <p class="profile-title"><i class="fas fa-star"></i> Главный зимний волшебник</p>
+                <p class="profile-location"><i class="fas fa-igloo"></i> Великий Устюг / Северный полюс</p>
+                <div class="profile-stats">
+                    <div>
+                        <strong class="big-number">2.7 млрд</strong>
+                        <span>друзей</span>
+                    </div>
+                    <div>
+                        <strong class="big-number">1.5 млрд</strong>
+                        <span>подписчиков</span>
+                    </div>
+                    <div>
+                        <strong class="big-number">7.8 млрд</strong>
+                        <span>подарков</span>
+                    </div>
+                </div>
+                <button class="btn btn-snow" onclick="addFriend()"><i class="fas fa-plus"></i> Добавить в друзья</button>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-users"></i> Онлайн сейчас</h3>
+                <ul class="online-list">
+                    <li>
+                        <div class="avatar-icon avatar-snowgirl">
+                            <i class="fas fa-female"></i>
+                        </div>
+                        Снегурочка <span class="online-dot"></span>
+                    </li>
+                    <li>
+                        <div class="avatar-icon avatar-snowman">
+                            <i class="fas fa-snowman"></i>
+                        </div>
+                        Почтовый Снеговик <span class="online-dot"></span>
+                    </li>
+                    <li>
+                        <div class="avatar-icon avatar-leshy">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        Леший <span class="online-dot"></span>
+                    </li>
+                    <li>
+                        <div class="avatar-icon avatar-water">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        Водяной <span class="offline">не в сети</span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Основная лента постов -->
+        <main class="feed">
+            <!-- Форма создания поста -->
+            <div class="create-post">
+                <div class="post-header">
+                    <div class="avatar avatar-icon avatar-santa">
+                        <i class="fas fa-snowman"></i>
+                    </div>
+                    <textarea id="newPost" placeholder="Что нового в вашем зимнем царстве, Дед Мороз?"></textarea>
+                </div>
+                <div class="post-actions">
+                    <button class="action-btn"><i class="fas fa-snowflake"></i> Волшебство</button>
+                    <button class="action-btn"><i class="fas fa-camera"></i> Фото</button>
+                    <button class="action-btn"><i class="fas fa-video"></i> Прямой эфир</button>
+                    <button class="btn btn-post" onclick="createPost()">Опубликовать</button>
+                </div>
+            </div>
+
+            <!-- Пост 1 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="avatar avatar-icon avatar-snowgirl">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <div class="post-author">
+                        <h3>Снегурочка</h3>
+                        <span class="post-time">2 часа назад <i class="fas fa-globe-europe"></i></span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Только что закончила репетицию новогоднего хоровода с зайчатами! 🐰❄️ Они такие милые, но постоянно путаются в движениях. К Новому году обещаю, что все будет идеально!</p>
+                </div>
+                <div class="post-stats">
+                    <span><i class="fas fa-heart"></i> <span id="likes1">325 млн</span></span>
+                    <span><i class="fas fa-comment"></i> 48 млн</span>
+                    <span><i class="fas fa-share"></i> 12 млн</span>
+                </div>
+                <div class="post-actions">
+                    <button class="like-btn" onclick="likePostBillion('likes1')"><i class="far fa-heart"></i> Нравится</button>
+                    <button class="comment-btn"><i class="far fa-comment"></i> Комментировать</button>
+                    <button class="share-btn"><i class="fas fa-share"></i> Поделиться</button>
+                </div>
+            </div>
+
+            <!-- Пост 2 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="avatar avatar-icon avatar-snowman">
+                        <i class="fas fa-snowman"></i>
+                    </div>
+                    <div class="post-author">
+                        <h3>Почтовый Снеговик</h3>
+                        <span class="post-time">5 часов назад <i class="fas fa-globe-europe"></i></span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Всем привет! 📬 Сегодня обработал рекордное количество писем — <strong>2.4 миллиарда</strong>! Дети в этом году просят очень интересные подарки: много роботов, наборы для опытов и, конечно, традиционные куклы и машинки. Дед Мороз, готовь мешки!</p>
+                </div>
+                <div class="post-stats">
+                    <span><i class="fas fa-heart"></i> <span id="likes2">890 млн</span></span>
+                    <span><i class="fas fa-comment"></i> 156 млн</span>
+                    <span><i class="fas fa-share"></i> 42 млн</span>
+                </div>
+                <div class="post-actions">
+                    <button class="like-btn" onclick="likePostBillion('likes2')"><i class="far fa-heart"></i> Нравится</button>
+                    <button class="comment-btn"><i class="far fa-comment"></i> Комментировать</button>
+                    <button class="share-btn"><i class="fas fa-share"></i> Поделиться</button>
+                </div>
+            </div>
+
+            <!-- Пост 3 (от Деда Мороза) -->
+            <div class="post highlight-post">
+                <div class="post-header">
+                    <div class="avatar avatar-icon avatar-santa">
+                        <i class="fas fa-snowman"></i>
+                    </div>
+                    <div class="post-author">
+                        <h3>Дед Мороз <span class="verified"><i class="fas fa-check-circle"></i></span></h3>
+                        <span class="post-time">Вчера в 20:00 <i class="fas fa-globe-europe"></i></span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Дорогие друзья! Проверил сегодня оленей — все в полной готовности! 🦌🎄 Рудольф сияет пуще прежнего. Начал упаковывать первые подарки. Напоминаю: ведите себя хорошо, я все вижу! А еще запустил новый сервис — «Волшебный трекер подарка». Ссылка в закрепленной истории!</p>
+                    <p style="margin-top: 10px; color: #1a2980; font-weight: bold;">
+                        <i class="fas fa-chart-line"></i> Статистика сети: 
+                        <span class="big-number">3.2 млрд</span> активных пользователей |
+                        <span class="big-number">15 млрд</span> постов за год |
+                        <span class="big-number">500 млрд</span> лайков
+                    </p>
+                </div>
+                <div class="post-stats">
+                    <span><i class="fas fa-heart"></i> <span id="likes3">4.2 млрд</span></span>
+                    <span><i class="fas fa-comment"></i> 890 млн</span>
+                    <span><i class="fas fa-share"></i> 256 млн</span>
+                </div>
+                <div class="post-actions">
+                    <button class="like-btn" onclick="likePostBillion('likes3')"><i class="far fa-heart"></i> Нравится</button>
+                    <button class="comment-btn"><i class="far fa-comment"></i> Комментировать</button>
+                    <button class="share-btn"><i class="fas fa-share"></i> Поделиться</button>
+                </div>
+            </div>
+            
+            <!-- Пост 4 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="avatar avatar-icon avatar-leshy">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <div class="post-author">
+                        <h3>Леший</h3>
+                        <span class="post-time">Вчера в 14:30 <i class="fas fa-globe-europe"></i></span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>В лесу начался первый серьёзный снегопад! ❄️🌲 Все тропинки замело, деревья в белых шапках. Зайцы перебрались в мою избушку греться. Кто в лесу - осторожнее на дорогах!</p>
+                </div>
+                <div class="post-stats">
+                    <span><i class="fas fa-heart"></i> <span id="likes4">45 млн</span></span>
+                    <span><i class="fas fa-comment"></i> 8.2 млн</span>
+                    <span><i class="fas fa-share"></i> 2.1 млн</span>
+                </div>
+                <div class="post-actions">
+                    <button class="like-btn" onclick="likePostBillion('likes4')"><i class="far fa-heart"></i> Нравится</button>
+                    <button class="comment-btn"><i class="far fa-comment"></i> Комментировать</button>
+                    <button class="share-btn"><i class="fas fa-share"></i> Поделиться</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Боковая панель справа -->
+        <aside class="sidebar-right">
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-chart-bar"></i> Мировая статистика</h3>
+                <ul class="online-list">
+                    <li>
+                        <i class="fas fa-globe-americas" style="color: #1a2980;"></i>
+                        <div style="flex-grow: 1;">
+                            <span>Пользователей в сети</span>
+                            <div style="font-size: 0.9rem; color: #666;">3.2 млрд</div>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-gift" style="color: #ff6b6b;"></i>
+                        <div style="flex-grow: 1;">
+                            <span>Запросов подарков</span>
+                            <div style="font-size: 0.9rem; color: #666;">2.4 млрд</div>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-snowflake" style="color: #26d0ce;"></i>
+                        <div style="flex-grow: 1;">
+                            <span>Волшебных действий</span>
+                            <div style="font-size: 0.9rem; color: #666;">15.7 млрд</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-widget magic-offers">
+                <h3><i class="fas fa-trophy"></i> Рекорды сети</h3>
+                <p>Самый популярный пост: <strong>4.2 млрд лайков</strong> 🏆</p>
+                <p>Больше всего друзей: <strong>2.7 млрд</strong> 🎅</p>
+                <button class="btn btn-magic" onclick="showRecords()">
+                    <i class="fas fa-crown"></i> Все рекорды
+                </button>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-hashtag"></i> Популярные теги</h3>
+                <div class="tags">
+                    <span class="tag" onclick="searchTag('#НовыйГод2024')">#НовыйГод2024</span>
+                    <span class="tag" onclick="searchTag('#МиллиардЛайков')">#МиллиардЛайков</span>
+                    <span class="tag" onclick="searchTag('#Подарки2024')">#Подарки2024</span>
+                    <span class="tag" onclick="searchTag('#Волшебство')">#Волшебство</span>
+                    <span class="tag" onclick="searchTag('#Снегопад')">#Снегопад</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Функция для расчета дней до Нового года
+        function calculateDaysToNewYear() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const nextYear = currentYear + 1;
+            const newYearDate = new Date(nextYear, 0, 1); // 1 января следующего года
+            
+            // Разница в миллисекундах
+            const diffTime = newYearDate - now;
+            
+            // Перевод в дни
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            return diffDays;
+        }
+        
+        // Обновление счетчика дней до Нового года
+        function updateCountdown() {
+            const days = calculateDaysToNewYear();
+            const countdownElement = document.getElementById('countdown');
+            
+            if (days > 0) {
+                countdownElement.textContent = days;
+                // Меняем цвет в зависимости от количества дней
+                if (days <= 7) {
+                    countdownElement.style.background = 'rgba(255, 87, 34, 0.3)';
+                    countdownElement.style.color = '#ffebee';
+                } else if (days <= 30) {
+                    countdownElement.style.background = 'rgba(255, 167, 38, 0.3)';
+                    countdownElement.style.color = '#fff8e1';
+                }
+            } else if (days === 0) {
+                countdownElement.textContent = '0 - С Новым годом! 🎉';
+                countdownElement.style.background = 'rgba(76, 175, 80, 0.3)';
+                countdownElement.style.color = '#e8f5e9';
+            } else {
+                // Если Новый год уже прошел
+                const nextNewYear = new Date(now.getFullYear() + 1, 0, 1);
+                const diff = Math.ceil((nextNewYear - now) / (1000 * 60 * 60 * 24));
+                countdownElement.textContent = diff;
+            }
+        }
+        
+        // Инициализация счетчика
+        updateCountdown();
+        
+        // Обновляем счетчик каждую минуту
+        setInterval(updateCountdown, 60000);
+        
+        // Функция для лайков в миллиардах
+        function likePostBillion(postId) {
+            const likesElement = document.getElementById(postId);
+            let text = likesElement.textContent;
+            
+            // Преобразуем текст в число
+            let number;
+            let isBillion = false;
+            
+            if (text.includes('млрд')) {
+                number = parseFloat(text);
+                isBillion = true;
+            } else if (text.includes('млн')) {
+                number = parseFloat(text);
+            } else {
+                number = parseFloat(text);
+            }
+            
+            // Увеличиваем число
+            if (isBillion) {
+                number += 0.1;
+                if (number >= 10) {
+                    likesElement.textContent = Math.floor(number) + ' млрд';
+                } else {
+                    likesElement.textContent = number.toFixed(1) + ' млрд';
+                }
+            } else if (text.includes('млн')) {
+                number += 1;
+                if (number >= 1000) {
+                    likesElement.textContent = (number / 1000).toFixed(1) + ' млрд';
+                } else {
+                    likesElement.textContent = Math.floor(number) + ' млн';
+                }
+            }
+            
+            // Меняем иконку
+            const likeBtn = event.currentTarget;
+            likeBtn.innerHTML = '<i class="fas fa-heart" style="color:#e91e63"></i> Нравится';
+            likeBtn.style.color = '#e91e63';
+            
+            // Показываем сообщение для больших чисел
+            if (isBillion && number >= 5) {
+                alert('Вау! 🎉 Вы поставили лайк под постом с более чем 5 миллиардами лайков! Это мировой рекорд! 🏆');
+            }
+        }
+        
+        function addFriend() {
+            const btn = document.querySelector('.btn-snow');
+            if (btn.innerHTML.includes('Добавить')) {
+                btn.innerHTML = '<i class="fas fa-check"></i> Заявка отправлена';
+                btn.style.background = 'linear-gradient(to right, #4CAF50, #2E7D32)';
+                alert('Заявка в друзья отправлена Деду Морозу! Теперь у него 2 700 000 001 друг! 🎅');
+            } else {
+                btn.innerHTML = '<i class="fas fa-plus"></i> Добавить в друзья';
+                btn.style.background = 'linear-gradient(to right, #00b4db, #0083b0)';
+            }
+        }
+        
+        function createPost() {
+            const textarea = document.getElementById('newPost');
+            if (textarea.value.trim() === '') {
+                alert('Напишите что-нибудь перед публикацией! ✍️');
+                return;
+            }
+            
+            alert('Пост опубликован! Ваше сообщение увидят более 3 миллиардов пользователей! 🌍❄️');
+            textarea.value = '';
+        }
+        
+        function showRecords() {
+            alert('🏆 РЕКОРДЫ МОРОЗБУК 🏆\n\n' +
+                  '🎅 Дед Мороз: 2.7 млрд друзей\n' +
+                  '❤️ Самый популярный пост: 4.2 млрд лайков\n' +
+                  '📬 Писем Деду Морозу: 2.4 млрд\n' +
+                  '❄️ Волшебных действий: 15.7 млрд\n' +
+                  '🌍 Пользователей в сети: 3.2 млрд');
+        }
+        
+        function searchTag(tag) {
+            alert('Ищем посты с тегом ' + tag + ' среди миллиардов постов... 🔍🌍');
+        }
+        
+        // Анимация снежинки в логотипе
+        const snowflake = document.querySelector('.logo i');
+        setInterval(() => {
+            snowflake.style.transform = `rotate(${Math.random() * 360}deg)`;
+        }, 3000);
+    </script>
+</body>
+</html>
